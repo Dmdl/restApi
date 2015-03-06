@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lakmal.rest.exception.DataAccessException;
 import com.lakmal.rest.model.Country;
 import com.lakmal.rest.service.CountryService;
 
@@ -26,22 +27,39 @@ public class CountryController {
 
 	@RequestMapping(value = "/countries", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Country> getCountries() {
+	public List<Country> getCountries() throws DataAccessException {
 		LOG.info("Accessing get country list service");
-		return countryService.getCountries();
+		try {
+			return countryService.getCountries();
+		} catch (Exception e) {
+			LOG.error("Data access exception");
+			throw new DataAccessException();
+		}
 	}
 
 	@RequestMapping(value = "/country/{code}", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
-	public Country getCountry(@PathVariable String code) {
+	public Country getCountry(@PathVariable String code)
+			throws DataAccessException {
 		LOG.info("Accessing get country service with country code " + code);
-		return countryService.getCountry(code);
+		try {
+			return countryService.getCountry(code);
+		} catch (Exception e) {
+			LOG.error("Data access exception");
+			throw new DataAccessException();
+		}
 	}
 
 	@RequestMapping(value = "/countryQu", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public Country getCountryWithQueryParam(
-			@RequestParam(value = "code", required = true) String code) {
-		return countryService.getCountry(code);
+			@RequestParam(value = "code", required = true) String code)
+			throws DataAccessException {
+		try {
+			return countryService.getCountry(code);
+		} catch (Exception e) {
+			LOG.error("Data access exception");
+			throw new DataAccessException();
+		}
 	}
 }
