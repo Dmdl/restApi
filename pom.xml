@@ -13,6 +13,13 @@
 
 	<dependencies>
 
+		<!-- logging dependency -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.8</version>
+		</dependency>
+
 		<!-- MySql Connector -->
 		<dependency>
 			<groupId>mysql</groupId>

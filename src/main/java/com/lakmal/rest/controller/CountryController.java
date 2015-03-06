@@ -27,14 +27,14 @@ public class CountryController {
 	@RequestMapping(value = "/countries", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Country> getCountries() {
-		LOG.debug("Accessing get country list service");
+		LOG.info("Accessing get country list service");
 		return countryService.getCountries();
 	}
 
 	@RequestMapping(value = "/country/{code}", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public Country getCountry(@PathVariable String code) {
-		LOG.debug("Accessing get country service with country code " + code);
+		LOG.info("Accessing get country service with country code " + code);
 		return countryService.getCountry(code);
 	}
 
